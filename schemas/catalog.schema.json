@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/CommerceDiscoveryLab/ai-commerce-discovery/main/schemas/catalog.schema.json",
+  "title": "AI Commerce Discovery catalog v1.0",
+  "description": "Structural contract only. Run the CLI for semantic, currency, duplicate, GTIN, URL and freshness checks. Neither proves real-world accuracy, reachability or platform acceptance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "demo",
+    "merchant",
+    "products"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "demo": {
+      "type": "boolean"
+    },
+    "merchant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "url",
+        "country",
+        "language"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "\\S"
+        },
+        "url": {
+          "$ref": "#/$defs/https"
+        },
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"
+        },
+        "support_url": {
+          "$ref": "#/$defs/https"
+        },
+        "shipping_policy_url": {
+          "$ref": "#/$defs/https"
+        },
+        "return_policy_url": {
+          "$ref": "#/$defs/https"
+        },
+        "privacy_policy_url": {
+          "$ref": "#/$defs/https"
+        },
+        "terms_url": {
+          "$ref": "#/$defs/https"
+        }
+      }
+    },
+    "products": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50000,
+      "items": {
+        "$ref": "#/$defs/product"
+      }
+    }
+  },
+  "$defs": {
+    "https": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "Absolute public HTTPS URL. CLI additionally rejects unsafe/local URLs; this schema does not fetch or authenticate it."
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,49}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timezone-aware actual observation timestamp; CLI checks freshness and future dates."
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "description",
+        "url",
+        "image_url",
+        "brand",
+        "price",
+        "currency",
+        "availability",
+        "condition",
+        "updated_at"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150,
+          "pattern": "\\S"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000,
+          "pattern": "\\S"
+        },
+        "url": {
+          "$ref": "#/$defs/https"
+        },
+        "image_url": {
+          "$ref": "#/$defs/https"
+        },
+        "brand": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "\\S"
+        },
+        "price": {
+          "type": "string",
+          "pattern": "^(?:0|[1-9][0-9]{0,14})(?:\\.[0-9]{1,4})?$",
+          "description": "Positive decimal string; CLI checks nonzero value and per-currency precision without rounding."
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "AUD",
+            "BHD",
+            "CAD",
+            "CNY",
+            "EUR",
+            "GBP",
+            "HKD",
+            "JPY",
+            "KRW",
+            "KWD",
+            "SGD",
+            "USD"
+          ]
+        },
+        "availability": {
+          "enum": [
+            "in_stock",
+            "out_of_stock",
+            "pre_order",
+            "backorder",
+            "unknown"
+          ]
+        },
+        "condition": {
+          "enum": [
+            "new",
+            "used",
+            "refurbished"
+          ]
+        },
+        "updated_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "sku": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 70,
+          "pattern": "\\S"
+        },
+        "mpn": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 70,
+          "pattern": "\\S"
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "\\S"
+        },
+        "gtin": {
+          "type": "string",
+          "pattern": "^(?:[0-9]{8}|[0-9]{12}|[0-9]{13}|[0-9]{14})$",
+          "description": "Assigned GTIN with leading zeros preserved; CLI checks checksum, not assignment."
+        },
+        "identifier_exists": {
+          "type": "boolean",
+          "description": "Set false only when merchant has confirmed appropriate identifiers do not exist."
+        },
+        "additional_images": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/$defs/https"
+          }
+        },
+        "attributes": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 20,
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "\\S"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S"
+          }
+        },
+        "group_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "variant": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": false,
+          "properties": {
+            "color": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500,
+              "pattern": "\\S"
+            },
+            "size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500,
+              "pattern": "\\S"
+            },
+            "material": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500,
+              "pattern": "\\S"
+            },
+            "pattern": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500,
+              "pattern": "\\S"
+            }
+          }
+        },
+        "availability_date": {
+          "$ref": "#/$defs/timestamp"
+        }
+      },
+      "dependentRequired": {
+        "group_id": [
+          "variant"
+        ],
+        "variant": [
+          "group_id"
+        ]
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "availability"
+            ],
+            "properties": {
+              "availability": {
+                "enum": [
+                  "pre_order",
+                  "backorder"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "availability_date"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

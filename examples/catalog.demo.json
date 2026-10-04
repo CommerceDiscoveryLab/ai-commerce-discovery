@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "demo": true,
+  "merchant": {
+    "name": "Demo Home Store",
+    "url": "https://shop.example.com",
+    "country": "US",
+    "language": "en-US",
+    "support_url": "https://shop.example.com/contact",
+    "shipping_policy_url": "https://shop.example.com/shipping",
+    "return_policy_url": "https://shop.example.com/returns",
+    "privacy_policy_url": "https://shop.example.com/privacy",
+    "terms_url": "https://shop.example.com/terms"
+  },
+  "products": [
+    {
+      "id": "DEMO-MUG350-BLUE",
+      "sku": "DEMO-MUG350-BLUE",
+      "title": "Blue ceramic mug, 350 mL",
+      "description": "Fictional demo ceramic mug with a handle. Capacity: 350 mL. This is a synthetic catalog example.",
+      "url": "https://shop.example.com/products/mug-blue",
+      "image_url": "https://shop.example.com/images/mug-blue.jpg",
+      "brand": "Demo Home",
+      "price": "18.00",
+      "currency": "USD",
+      "availability": "in_stock",
+      "condition": "new",
+      "updated_at": "2026-10-04T00:00:00Z",
+      "mpn": "DEMO-MUG350-BLUE",
+      "category": "Home & Garden > Kitchen & Dining > Drinkware",
+      "group_id": "DEMO-MUG350",
+      "variant": {
+        "color": "Blue"
+      },
+      "attributes": {
+        "capacity": "350 mL",
+        "material": "ceramic"
+      }
+    },
+    {
+      "id": "DEMO-MUG350-WHITE",
+      "sku": "DEMO-MUG350-WHITE",
+      "title": "White ceramic mug, 350 mL",
+      "description": "Fictional demo ceramic mug with a handle. Capacity: 350 mL. This is a synthetic catalog example.",
+      "url": "https://shop.example.com/products/mug-white",
+      "image_url": "https://shop.example.com/images/mug-white.jpg",
+      "brand": "Demo Home",
+      "price": "18.00",
+      "currency": "USD",
+      "availability": "out_of_stock",
+      "condition": "new",
+      "updated_at": "2026-10-04T00:00:00Z",
+      "mpn": "DEMO-MUG350-WHITE",
+      "category": "Home & Garden > Kitchen & Dining > Drinkware",
+      "group_id": "DEMO-MUG350",
+      "variant": {
+        "color": "White"
+      },
+      "attributes": {
+        "capacity": "350 mL",
+        "material": "ceramic"
+      }
+    },
+    {
+      "id": "DEMO-TOTE-NATURAL",
+      "title": "Natural cotton tote bag",
+      "description": "Fictional demo cotton tote with two handles. Width: 38 cm; height: 42 cm. Synthetic example, not a real offer.",
+      "url": "https://shop.example.com/products/tote-natural",
+      "image_url": "https://shop.example.com/images/tote.jpg",
+      "brand": "Demo Home",
+      "price": "12.00",
+      "currency": "USD",
+      "availability": "in_stock",
+      "condition": "new",
+      "updated_at": "2026-10-04T00:00:00Z",
+      "mpn": "DEMO-TOTE-NATURAL",
+      "category": "Luggage & Bags > Shopping Totes",
+      "attributes": {
+        "material": "cotton",
+        "width": "38 cm",
+        "height": "42 cm"
+      }
+    }
+  ]
+}
