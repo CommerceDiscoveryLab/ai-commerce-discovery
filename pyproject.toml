@@ -11,6 +11,11 @@ requires-python = ">=3.9"
 license = {text = "MIT"}
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/CommerceDiscoveryLab/ai-commerce-discovery"
+Documentation = "https://github.com/CommerceDiscoveryLab/ai-commerce-discovery/tree/main/docs"
+Issues = "https://github.com/CommerceDiscoveryLab/ai-commerce-discovery/issues"
+
 [project.scripts]
 commerce-discovery = "commerce_discovery.__main__:main"
 
